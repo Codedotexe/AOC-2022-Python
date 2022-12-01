@@ -1,0 +1,12 @@
+/workspace.xml
+/dataSources.local.xml
+**/__pycache__/
+**/*.db
+**/*.cache
+**/*.egg-info/
+**/.pytest_cache/
+build/
+dist/
+.coverage
+.VSCodeCounter
+.idea/statistic.xml
