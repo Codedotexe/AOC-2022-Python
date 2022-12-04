@@ -2,51 +2,76 @@ from src.utils.PuzzleSolution import PuzzleSolution
 from enum import Enum
 import aocd
 
+
 class Solution(PuzzleSolution):
-	stratergyGuide = []
-	shapeMap = {"A": 1, "B": 2, "C": 3, "X": 1, "Y": 2, "Z": 3}
+	strategyGuide = []
 
 	class RoundResult(Enum):
 		WON = 6
 		DRAW = 3
 		LOST = 0
 
+	class HandShape(Enum):
+		ROCK = 1
+		PAPER = 2
+		SCISSORS = 3
+
+	# (opponent shape, your shape): game outcome for you
+	gameResultsLookup = {
+		(HandShape.ROCK, HandShape.PAPER): RoundResult.WON,
+		(HandShape.PAPER, HandShape.ROCK): RoundResult.LOST,
+		(HandShape.PAPER, HandShape.SCISSORS): RoundResult.WON,
+		(HandShape.SCISSORS, HandShape.PAPER): RoundResult.LOST,
+		(HandShape.SCISSORS, HandShape.ROCK): RoundResult.WON,
+		(HandShape.ROCK, HandShape.SCISSORS): RoundResult.LOST,
+		(HandShape.ROCK, HandShape.ROCK): RoundResult.DRAW,
+		(HandShape.PAPER, HandShape.PAPER): RoundResult.DRAW,
+		(HandShape.SCISSORS, HandShape.SCISSORS): RoundResult.DRAW
+	}
+
+	# (opponent shape, indicated outcome): your shape
+	shapeLookup = {
+		(HandShape.ROCK, RoundResult.WON): HandShape.PAPER,
+		(HandShape.ROCK, RoundResult.LOST): HandShape.SCISSORS,
+		(HandShape.ROCK, RoundResult.DRAW): HandShape.ROCK,
+		(HandShape.PAPER, RoundResult.WON): HandShape.SCISSORS,
+		(HandShape.PAPER, RoundResult.LOST): HandShape.ROCK,
+		(HandShape.PAPER, RoundResult.DRAW): HandShape.PAPER,
+		(HandShape.SCISSORS, RoundResult.WON): HandShape.ROCK,
+		(HandShape.SCISSORS, RoundResult.LOST): HandShape.PAPER,
+		(HandShape.SCISSORS, RoundResult.DRAW): HandShape.SCISSORS
+	}
+
 	def __init__(self, data):
+		super().__init__(data)
 		data = data.strip("\n").split("\n")
 		for entryStr in data:
 			pre, _, post = entryStr.partition(" ")
-			self.stratergyGuide.append((pre, post))
-		assert(len(self.stratergyGuide) > 1)
-
-	def simulateRound(self, opponent, you) -> RoundResult:
-		opponentNum = self.shapeMap[opponent]
-		youNum = self.shapeMap[you]
-
-		if opponentNum == 2 and youNum == 1: # paper beats rock
-			return self.RoundResult.LOST
-		elif opponentNum == 1 and youNum == 2: # paper beats rock
-			return self.RoundResult.WON
-		elif opponentNum == 3 and youNum == 2: # scissors beats paper
-			return self.RoundResult.LOST
-		elif opponentNum == 2 and youNum == 3: # scissors beats paper
-			return self.RoundResult.WON
-		elif opponentNum == 1 and youNum == 3: # rock beats scissors
-			return self.RoundResult.LOST
-		elif opponentNum == 3 and youNum == 1: # rock beats scissors
-			return self.RoundResult.WON
-		elif opponentNum == youNum: # draw
-			return self.RoundResult.DRAW
-		else:
-			raise RuntimeError("Unknown combination")
+			self.strategyGuide.append((pre, post))
+		assert (len(self.strategyGuide) > 1)
 
 	def part1(self) -> int:
 		points = 0
-		for opponent, you in self.stratergyGuide:
-			points += self.simulateRound(opponent, you).value + self.shapeMap[you]
+		for colA, colB in self.strategyGuide:
+			opponentShape = self.HandShape(ord(colA) - ord("A") + 1)
+			yourShape = self.HandShape(ord(colB) - ord("X") + 1)
+
+			roundResult = self.gameResultsLookup[(opponentShape, yourShape)]
+			points += roundResult.value
+			points += yourShape.value
 		return points
 
 	def part2(self):
-		pass
+		points = 0
+		for colA, colB in self.strategyGuide:
+			opponentShape = self.HandShape(ord(colA) - ord("A") + 1)
+			roundResult = self.RoundResult((ord(colB) - ord("X")) * 3)
+
+			yourShape = self.shapeLookup[(opponentShape, roundResult)]
+			points += roundResult.value
+			points += yourShape.value
+		return points
+
 
 if __name__ == "__main__":
 	solution = Solution(aocd.get_data(day=2, year=2022))
