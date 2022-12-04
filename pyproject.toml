@@ -10,7 +10,6 @@ description = "Advent of Code 2022 in Python"
 readme = "README.md"
 license = { file="LICENSE" }
 requires-python = ">=3.8"
-entry-points = {adventofcode.user = ["aoc = src:plugin"] }
 dependencies = [
     "advent-of-code-data>=1.2",
 ]
@@ -19,3 +18,8 @@ classifiers = [
     "Operating System :: OS Independent",
 ]
 
+[project.entry-points]
+adventofcode.user = ["aoc = src:plugin"]
+
+[project.scripts]
+aocw = "src.cli:run_one"
