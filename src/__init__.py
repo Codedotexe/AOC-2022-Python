@@ -1,15 +1,9 @@
 import importlib
 
 def plugin(year, day, data):
-	modName = f"src.Day-{day}"
+	modName = f"src.Day{day:02d}.main"
 	mod = importlib.import_module(modName)
-
-	part1 = None
-	part2 = None
-	try:
-		part1 = mod.part1(data)
-		part2 = mod.part2(data)
-	except AttributeError:
-		pass
-
+	solution = mod.Solution(data)
+	part1 = solution.part1()
+	part2 = solution.part2()
 	return part1, part2
