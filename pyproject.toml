@@ -12,6 +12,7 @@ license = { file="LICENSE" }
 requires-python = ">=3.8"
 dependencies = [
     "advent-of-code-data>=1.2",
+    "argparse>=1.0"
 ]
 classifiers = [
     "Programming Language :: Python :: 3",
