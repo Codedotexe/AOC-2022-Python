@@ -22,4 +22,4 @@ classifiers = [
 adventofcode.user = "src:plugin"
 
 [project.scripts]
-aocw = "src.cli:run_one"
+aocw = "src.cli:runOne"
