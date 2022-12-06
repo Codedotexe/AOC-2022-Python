@@ -24,10 +24,10 @@ jobs:
       - name: Lint with flake8
         run: |
           # stop the build if there are Python syntax errors or undefined names
-          flake8 src --count --select=E9,F63,F7,F82 --show-source --statistics --max-line-length=120 --docstring-convention=google --ignore=D415,D205,D401,D212,D403,W191,W293,E101,E117,E275
+          flake8 AOC2022 --count --select=E9,F63,F7,F82 --show-source --statistics --max-line-length=120 --docstring-convention=google --ignore=D415,D205,D401,D212,D403,W191,W293,E101,E117,E275
 
           # exit-zero treats all errors as warnings
-          flake8 src --count --exit-zero --max-complexity=10 --max-line-length=120 --statistics --docstring-convention=google --ignore=D415,D205,D401,D212,D403,W191,W293,E101,E117,E275
+          flake8 AOC2022 --count --exit-zero --max-complexity=10 --max-line-length=120 --statistics --docstring-convention=google --ignore=D415,D205,D401,D212,D403,W191,W293,E101,E117,E275
       - name: Build package
         run: python -m build
       - name: Run unittests
