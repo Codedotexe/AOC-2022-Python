@@ -19,8 +19,8 @@ classifiers = [
     "Operating System :: OS Independent",
 ]
 
-[project.entry-points]
-adventofcode.user = "AOC2022:plugin"
+[project.entry-points."adventofcode.user"]
+plugin = "AOC2022:plugin"
 
 [project.scripts]
-aocw = "AOC2022"
+aocw = "AOC2022:cli"
