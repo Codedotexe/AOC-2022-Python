@@ -1,3 +1,4 @@
+# noinspection PyUnusedLocal
 class PuzzleSolution:
 	def __init__(self, data):
 		pass

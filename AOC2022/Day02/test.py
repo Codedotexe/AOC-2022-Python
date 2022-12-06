@@ -1,13 +1,14 @@
 import unittest
 from .main import Solution
 
+
 class TestDay02(unittest.TestCase):
 	solution = None
 
 	@classmethod
-	def setUpClass(self) -> None:
+	def setUpClass(cls) -> None:
 		data = "A Y\nB X\nC Z"
-		self.solution = Solution(data)
+		cls.solution = Solution(data)
 
 	def testPart1(self):
 		self.assertEqual(15, self.solution.part1())

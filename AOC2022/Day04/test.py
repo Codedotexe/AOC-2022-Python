@@ -1,11 +1,12 @@
 import unittest
 from .main import Solution
 
+
 class TestDay04(unittest.TestCase):
 	solution = None
 
 	@classmethod
-	def setUpClass(self) -> None:
+	def setUpClass(cls) -> None:
 		data = "\n".join([
 			"2-4,6-8",
 			"2-3,4-5",
@@ -14,7 +15,7 @@ class TestDay04(unittest.TestCase):
 			"6-6,4-6",
 			"2-6,4-8"
 		])
-		self.solution = Solution(data)
+		cls.solution = Solution(data)
 
 	def testPart1(self):
 		self.assertEqual(2, self.solution.part1())

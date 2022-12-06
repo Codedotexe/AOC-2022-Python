@@ -3,6 +3,7 @@ from enum import Enum
 import aocd
 
 
+# noinspection DuplicatedCode
 class Solution(PuzzleSolution):
 	strategyGuide = []
 

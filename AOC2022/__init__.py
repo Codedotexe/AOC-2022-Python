@@ -1,5 +1,7 @@
 import importlib
 
+
+# noinspection PyUnusedLocal
 def plugin(year, day, data):
 	modName = f"{__package__}.Day{day:02d}.main"
 	mod = importlib.import_module(modName)

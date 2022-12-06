@@ -3,58 +3,61 @@ import aocd
 import copy
 import re
 
+
 class Solution(PuzzleSolution):
 	moveInstructions = []
 	stacks = dict()
 
 	class MoveInstruction:
 		amount = None
-		srcStackIndex = None
-		destStackIndex = None
+		source_stack_index = None
+		destination_stack_index = None
 
-		def __init__(self, amount, srcStackIndex, destStackIndex):
+		def __init__(self, amount, source_stack_index, destination_stack_index):
 			self.amount = amount
-			self.srcStackIndex = srcStackIndex
-			self.destStackIndex = destStackIndex
+			self.source_stack_index = source_stack_index
+			self.destination_stack_index = destination_stack_index
 
 		def move(self, stacks):
-			srcStack = stacks[self.srcStackIndex]
-			destStack = stacks[self.destStackIndex]
+			source_stack = stacks[self.source_stack_index]
+			destination_stack = stacks[self.destination_stack_index]
 			for i in range(self.amount):
-				destStack.append(srcStack.pop())
+				destination_stack.append(source_stack.pop())
 
-		def moveAdvanced(self, stacks):
-			srcStack = stacks[self.srcStackIndex]
-			destStack = stacks[self.destStackIndex]
-			destStack += srcStack[-self.amount:]
+		def move_advanced(self, stacks):
+			source_stack = stacks[self.source_stack_index]
+			destination_stack = stacks[self.destination_stack_index]
+			destination_stack += source_stack[-self.amount:]
 			for i in range(self.amount):
-				srcStack.pop()
+				source_stack.pop()
 
 	def __init__(self, data: str) -> None:
-		layoutStr, _, instructionsStr = data.partition("\n\n")
+		super().__init__(data)
+		layout_string, _, instructions_string = data.partition("\n\n")
 
 		# Rotate the text block to 90 degrees
-		cols = zip(*layoutStr.rstrip("\n").split("\n"))
+		cols = zip(*layout_string.rstrip("\n").split("\n"))
 		for col in list(cols)[::-1]:
-			newRow = ''.join(col)[::-1]
-			newRow = newRow.rstrip(" ")
+			new_row = ''.join(col)[::-1]
+			new_row = new_row.rstrip(" ")
 
-			# newRow now represents a whole stack
-			if re.match("^\d[A-Z]+$", newRow):
-				stackIndex = int(newRow[0])
-				stackEntries = list(newRow[1:])
+			# new_row now represents a whole stack
+			if re.match("^\\d[A-Z]+$", new_row):
+				stackIndex = int(new_row[0])
+				stackEntries = list(new_row[1:])
 				self.stacks[stackIndex] = stackEntries
 
-		for i in instructionsStr.rstrip("\n").split("\n"):
-			match = re.search("^move (\d+) from (\d+) to (\d+)$", i)
-			assert(match is not None)
+		for i in instructions_string.rstrip("\n").split("\n"):
+			match = re.search("^move (\\d+) from (\\d+) to (\\d+)$", i)
+			assert (match is not None)
 			self.moveInstructions.append(self.MoveInstruction(
 				int(match.group(1)),
 				int(match.group(2)),
 				int(match.group(3))
 			))
 
-	def createMessage(self, stacks):
+	@staticmethod
+	def create_message(stacks):
 		keys = list(stacks.keys())
 		keys.sort()
 		message = ""
@@ -66,13 +69,13 @@ class Solution(PuzzleSolution):
 		stacksCopy = copy.deepcopy(self.stacks)
 		for instruction in self.moveInstructions:
 			instruction.move(stacksCopy)
-		return self.createMessage(stacksCopy)
+		return self.create_message(stacksCopy)
 
-	def part2(self) -> int:
+	def part2(self) -> str:
 		stacksCopy = copy.deepcopy(self.stacks)
 		for instruction in self.moveInstructions:
-			instruction.moveAdvanced(stacksCopy)
-		return self.createMessage(stacksCopy)
+			instruction.move_advanced(stacksCopy)
+		return self.create_message(stacksCopy)
 
 
 if __name__ == "__main__":

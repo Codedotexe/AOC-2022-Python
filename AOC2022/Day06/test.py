@@ -1,8 +1,10 @@
 import unittest
 from .main import Solution
 
+
 class TestDay06(unittest.TestCase):
 	def testPart1(self):
+		# noinspection SpellCheckingInspection
 		testData = {
 			"mjqjpqmgbljsphdztnvjfqwrcgsmlb": 7,
 			"bvwbjplbgvbhsrlpgdmjqwftvncz": 5,
@@ -15,6 +17,7 @@ class TestDay06(unittest.TestCase):
 			self.assertEqual(result, Solution(data).part1())
 
 	def testPart2(self):
+		# noinspection SpellCheckingInspection
 		testData = {
 			"mjqjpqmgbljsphdztnvjfqwrcgsmlb": 19,
 			"bvwbjplbgvbhsrlpgdmjqwftvncz": 23,

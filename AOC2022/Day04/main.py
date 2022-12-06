@@ -2,6 +2,7 @@ from AOC2022.utils.PuzzleSolution import PuzzleSolution
 import aocd
 import re
 
+
 class Solution(PuzzleSolution):
 	pairs = []
 
@@ -41,10 +42,11 @@ class Solution(PuzzleSolution):
 			return f"{self.aStart}-{self.aEnd},{self.bStart}-{self.bEnd}"
 
 	def __init__(self, data: str) -> None:
+		super().__init__(data)
 		data = data.rstrip("\n").split("\n")
 		for entryStr in data:
-			match = re.search("^(\d+)-(\d+),(\d+)-(\d+)$", entryStr)
-			assert(match is not None)
+			match = re.search("^(\\d+)-(\\d+),(\\d+)-(\\d+)$", entryStr)
+			assert (match is not None)
 			self.pairs.append(self.Pair(
 				int(match.group(1)),
 				int(match.group(2)),
@@ -52,7 +54,7 @@ class Solution(PuzzleSolution):
 				int(match.group(4))
 			))
 
-		assert(len(self.pairs) > 1)
+		assert (len(self.pairs) > 1)
 
 	def part1(self) -> int:
 		count = 0

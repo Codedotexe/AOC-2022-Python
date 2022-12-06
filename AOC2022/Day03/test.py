@@ -1,11 +1,13 @@
 import unittest
 from .main import Solution
 
+
 class TestDay03(unittest.TestCase):
 	solution = None
 
 	@classmethod
-	def setUpClass(self) -> None:
+	def setUpClass(cls) -> None:
+		# noinspection SpellCheckingInspection
 		data = "\n".join([
 			"vJrwpWtwJgWrhcsFMMfFFhFp",
 			"jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL",
@@ -14,7 +16,7 @@ class TestDay03(unittest.TestCase):
 			"ttgJtRGJQctTZtZT",
 			"CrZsJsPPZsGzwwsLwLmpwMDw"
 		])
-		self.solution = Solution(data)
+		cls.solution = Solution(data)
 
 	def testPart1(self):
 		self.assertEqual(157, self.solution.part1())
