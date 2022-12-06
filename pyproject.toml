@@ -3,7 +3,7 @@ requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "AOC-2022-Python"
+name = "AOC2022"
 version = "1.0.0"
 authors = []
 description = "Advent of Code 2022 in Python"
@@ -20,7 +20,7 @@ classifiers = [
 ]
 
 [project.entry-points]
-adventofcode.user = "AOC-2022:plugin"
+adventofcode.user = "AOC2022:plugin"
 
 [project.scripts]
-aocw = "AOC-2022"
+aocw = "AOC2022"
