@@ -5,7 +5,7 @@ from argparse import ArgumentParser
 from datetime import datetime
 
 
-def _createParser():
+def createParser():
 	parser = ArgumentParser(description=__doc__)
 	aoc_now = datetime.now(tz=aocd.utils.AOC_TZ)
 	dayChoices = list(map(str, range(1, 26))) + ["all"]
@@ -19,8 +19,8 @@ def _createParser():
 	return parser
 
 
-def _runSolution(day, data=None):
-	modName = f"src.Day{day:02d}.main"
+def runSolution(day, data=None):
+	modName = f"{__package__}.Day{day:02d}.main"
 	mod = importlib.import_module(modName)
 	if data is None:
 		data = aocd.get_data(day=day, year=2022)
@@ -29,33 +29,28 @@ def _runSolution(day, data=None):
 	print(f"Day-{day:02d} Part 2:", solution.part2())
 
 
-def runOne():
-	parser = _createParser()
-	args = parser.parse_args()
-	if args.log_level:
-		level_int = getattr(logging, args.log_level)
-		logging.basicConfig(format="%(message)s", level=level_int)
+parser = createParser()
+args = parser.parse_args()
+if args.log_level:
+	level_int = getattr(logging, args.log_level)
+	logging.basicConfig(format="%(message)s", level=level_int)
 
-	if args.data is not None and args.day == "all":
-		raise RuntimeError()
+if args.data is not None and args.day == "all":
+	raise RuntimeError()
 
-	if args.day == "all":
-		for i in range(1, 26):
-			try:
-				_runSolution(i)
-			except ModuleNotFoundError:
-				break
-	else:
-		data = None
-		if args.data is not None:
-			with open(args.data, "r") as file:
-				data = file.read()
-
+if args.day == "all":
+	for i in range(1, 26):
 		try:
-			_runSolution(int(args.day), data)
+			runSolution(i)
 		except ModuleNotFoundError:
-			print(f"The solution for day {args.day} is not yet implemented.")
+			break
+else:
+	data = None
+	if args.data is not None:
+		with open(args.data, "r") as file:
+			data = file.read()
 
-
-if __name__ == "__main__":
-	runOne()
+	try:
+		runSolution(int(args.day), data)
+	except ModuleNotFoundError:
+		print(f"The solution for day {args.day} is not yet implemented.")

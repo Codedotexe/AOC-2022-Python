@@ -1,7 +1,7 @@
 import importlib
 
 def plugin(year, day, data):
-	modName = f"src.Day{day:02d}.main"
+	modName = f"{__package__}.Day{day:02d}.main"
 	mod = importlib.import_module(modName)
 	solution = mod.Solution(data)
 	part1 = solution.part1()

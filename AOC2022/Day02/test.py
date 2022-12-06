@@ -1,5 +1,5 @@
 import unittest
-from src.Day02.main import Solution
+from .main import Solution
 
 class TestDay02(unittest.TestCase):
 	solution = None

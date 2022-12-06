@@ -1,4 +1,4 @@
-from src.utils.PuzzleSolution import PuzzleSolution
+from AOC2022.utils.PuzzleSolution import PuzzleSolution
 import aocd
 import re
 

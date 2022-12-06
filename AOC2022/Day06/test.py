@@ -1,5 +1,5 @@
 import unittest
-from src.Day06.main import Solution
+from .main import Solution
 
 class TestDay06(unittest.TestCase):
 	def testPart1(self):

@@ -20,7 +20,7 @@ classifiers = [
 ]
 
 [project.entry-points]
-adventofcode.user = "src:plugin"
+adventofcode.user = "AOC-2022:plugin"
 
 [project.scripts]
-aocw = "src.cli:runOne"
+aocw = "AOC-2022"

@@ -1,8 +1,6 @@
-import copy
-from pprint import pprint
-
-from src.utils.PuzzleSolution import PuzzleSolution
+from AOC2022.utils.PuzzleSolution import PuzzleSolution
 import aocd
+import copy
 import re
 
 class Solution(PuzzleSolution):
