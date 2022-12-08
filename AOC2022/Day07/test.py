@@ -15,8 +15,8 @@ class TestDay07(unittest.TestCase):
 	def testPart1(self):
 		self.assertEqual(95437, self.solution.part1())
 
-	#def testPart2(self):
-	#	self.assertEqual("MCD", self.solution.part2())
+	def testPart2(self):
+		self.assertEqual(24933642, self.solution.part2())
 
 
 if __name__ == '__main__':
