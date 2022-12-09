@@ -6,7 +6,7 @@ class File:
 	_size = None
 	name = None
 
-	def __init__(self, size: int, name: str):
+	def __init__(self, size, name: str):
 		self._size = size
 		self.name = name
 
@@ -69,11 +69,11 @@ class FileSystem:
 		self.cwd_dir = self._navigate(self.cwd_dir, path)
 
 	def create_file(self, size, name):
-		assert (self.cwd_dir.find_child(name) is None, "A child with that name already exists")
+		assert self.cwd_dir.find_child(name) is None, "A child with that name already exists"
 		self.cwd_dir.children.add(File(size, name))
 
 	def create_dir(self, name):
-		assert (self.cwd_dir.find_child(name) is None, "A child with that name already exists")
+		assert self.cwd_dir.find_child(name) is None, "A child with that name already exists"
 		self.cwd_dir.children.add(Directory(name, self.cwd_dir))
 
 	def iterate_dirs(self):
@@ -125,12 +125,12 @@ class Solution(PuzzleSolution):
 		FREE_SPACE = TOTAL_SIZE - self.file_system.root_dir.size()
 		UPDATE_SIZE = 30000000
 		SIZE_TO_FREE = UPDATE_SIZE - FREE_SPACE
-		assert (SIZE_TO_FREE > 0, "There is already enough free space")
+		assert SIZE_TO_FREE > 0, "There is already enough free space"
 
 		dirs = list(self.file_system.iterate_dirs())
 		dirs.sort(key=lambda x: x.size())
 		dir_to_delete = next(filter(lambda x: x.size() >= SIZE_TO_FREE, dirs), None)
-		assert (dir_to_delete is not None, "Could not find a directory to delete")
+		assert dir_to_delete is not None, "Could not find a directory to delete"
 
 		return dir_to_delete.size()
 
